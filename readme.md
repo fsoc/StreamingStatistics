@@ -6,3 +6,6 @@ Eddie River has been hired by a company providing a music streaming service. His
 
 ## test
     mvn test
+
+## run
+    cat samples/streamstats_sample.01.in |java -cp target/StreamingStatistics-1.0.jar fsoc.StreamingStatistics
