@@ -47,13 +47,33 @@ public class ITree  {
     }
   }
 
- /** Returns the Nodes that intersect the range (lo, hi) meaning
-  * the query (1,2) does not return the range 0,1.
+  /** Returns the Nodes that intersect the range (lo, hi) meaning
+   * the query (1,2) does not return the range 0,1.
    */
-  public LinkedList<Node> intersects(int lo, int hi) {
+  public LinkedList<Node> getIntersections(int lo, int hi) {
     LinkedList<Node> ans = new LinkedList<Node>();
+    Node current = root;
+
+    while (current != null) {
+
+      if (intersects(lo, hi, current.getLo(), current.getHi())) {
+        ans.add(current);
+        // Support one result for now.
+        return ans;
+      }
+      if (current.getLeft() != null && current.getLeft().getMaxHi() > lo) {
+        current = current.getLeft();
+      } else {
+        current = current.getRight();
+      }
+    }
 
     return ans;
+  }
+
+  // Returns true if (lo1, hi1) intersect with (lo2, hi2)
+  private boolean intersects(int lo1, int hi1, int lo2, int hi2) {
+    return lo1 < hi2 && hi1 > lo2;
   }
 
   // Returns a string representation of this tree
