@@ -19,7 +19,7 @@ public class ITree  {
   public void add(int lo, int hi, int bitrate) {
 
     if (root == null) {
-      root = new Node(lo, hi, hi, bitrate);
+      root = new Node(lo, hi, lo, hi, bitrate);
     } else {
       Node current = root;
       while (current != null) {
@@ -27,17 +27,21 @@ public class ITree  {
         if (current.getMaxHi() < hi) {
           current.setMaxHi(hi);
         }
+        // Keep track of the lowest interval in the subtree
+        if (current.getMaxLo() > lo) {
+          current.setMaxLo(lo);
+        }
 
         if (current.getLo() > lo) {
           if (current.getLeft() == null) {
-            current.setLeft(new Node(lo, hi, hi, bitrate));
+            current.setLeft(new Node(lo, hi, lo, hi, bitrate));
             return;
           } else {
             current = current.getLeft();
           }
         } else {
           if (current.getRight() == null) {
-            current.setRight(new Node(lo, hi, hi, bitrate));
+            current.setRight(new Node(lo, hi, lo, hi, bitrate));
             return;
           } else {
             current = current.getRight();

@@ -8,7 +8,8 @@ public class Node  {
   private Node left;
   private Node right;
 
-  // The max of values "hi" below and on this part of the tree
+  // The max of values lo and hi below and on this part of the tree
+  private int maxLo;
   private int maxHi;
 
   // This interval
@@ -17,19 +18,28 @@ public class Node  {
   private int bitrate;
 
 
-  public Node(int lo, int hi, int maxHi, int bitrate) {
+  public Node(int lo, int hi, int maxLo, int maxHi, int bitrate) {
     this.lo = lo;
     this.hi = hi;
+    this.maxLo = maxLo;
     this.maxHi = maxHi;
     this.bitrate = bitrate;
   }
 
-  public void setMaxHi(int maxHi) {
-    this.maxHi = maxHi;
+  public int getMaxLo() {
+    return maxLo;
+  }
+
+  public void setMaxLo(int maxLo) {
+    this.maxLo = maxLo;
   }
 
   public int getMaxHi() {
     return maxHi;
+  }
+
+  public void setMaxHi(int maxHi) {
+    this.maxHi = maxHi;
   }
 
   public int getHi() {
@@ -57,6 +67,6 @@ public class Node  {
   }
 
   public String toString() {
-    return "(" + lo + "," + hi + ") " + maxHi + " ";
+    return "(" + lo + "," + hi + ") " + maxLo + ";" + maxHi + " ";
   }
 }
