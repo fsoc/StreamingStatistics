@@ -49,6 +49,7 @@ public class StreamingStatisticsTest {
     InputStream answerStream = new FileInputStream(answer);
     String answerString = streamToString(answerStream);
 
+    System.out.println(StreamingStatistics.processStats(input));
     //assertEquals(answerString, StreamingStatistics.processStats(input));
 
     input.close();
