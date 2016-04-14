@@ -10,12 +10,12 @@ public class ITreeTest {
 
   private ITree createTree() {
     ITree tree = new ITree();
-    tree.add(20, 36, 1);
-    tree.add(29, 99, 1);
-    tree.add(3, 41, 1);
-    tree.add(0, 1, 1);
-    tree.add(10, 15, 1);
-    tree.add(7, 8, 1);
+    tree.add(20, 36, 6);
+    tree.add(29, 99, 2);
+    tree.add(3, 41, 3);
+    tree.add(0, 1, 12);
+    tree.add(10, 15, 11);
+    tree.add(7, 8, 39);
     return tree;
   }
 
@@ -62,6 +62,15 @@ public class ITreeTest {
     LinkedList<Node> intersections = tree.getIntersections(0, 9);
     assertEquals(3, intersections.size());
     assertEquals("(7,8) 7;8 (0,1) 0;1 (3,41) 0;41 ", getIntersections(intersections));
+  }
+
+  @Test
+  public void testDuplicates() {
+    ITree tree = createTree();
+    tree.add(7, 8, 9);
+    LinkedList<Node> intersections = tree.getIntersections(0, 9);
+    assertEquals(4, intersections.size());
+    assertEquals("(7,8) 7;8 (7,8) 7;8 (0,1) 0;1 (3,41) 0;41 ", getIntersections(intersections));
   }
 
   private String getIntersections(LinkedList<Node> intersections) {
