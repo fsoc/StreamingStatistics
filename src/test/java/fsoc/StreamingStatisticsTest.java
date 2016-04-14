@@ -35,6 +35,15 @@ public class StreamingStatisticsTest {
   }
 
   @Test
+  public void testBpsTransform() {
+    Query q = new Query(new Long("1325967078930"), new Long("1325967078931"));
+
+    Node node = new Node(0, new Long("9325967078931"), 0, 0, 96);
+    assertEquals(96, StreamingStatistics.getBandwidth(node, q));
+
+  }
+
+  @Test
   public void testY() throws IOException {
     try  {
       executeTextFiles(file.toString(), file.toString().replace("in","ans"));
@@ -49,8 +58,7 @@ public class StreamingStatisticsTest {
     InputStream answerStream = new FileInputStream(answer);
     String answerString = streamToString(answerStream);
 
-    System.out.println(StreamingStatistics.processStats(input));
-    //assertEquals(answerString, StreamingStatistics.processStats(input));
+    assertEquals(answerString.replace("\n",""), StreamingStatistics.processStats(input).replace("\n",""));
 
     input.close();
     answerStream.close();
