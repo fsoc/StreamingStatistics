@@ -6,6 +6,8 @@
 package fsoc;
 
 import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class ITree  {
   private Node root;
@@ -13,7 +15,17 @@ public class ITree  {
   public ITree() {
   }
 
-  /** Adds the node to the tree, we will try to balance it by doing a
+  // Add all entries to this tree
+  public ITree(ArrayList<Log> entries) {
+    Iterator<Log> it = entries.listIterator();
+    while (it.hasNext()) {
+      Log log = it.next();
+      add(log.getLo(), log.getHi(), log.getBitrate());
+    }
+  }
+
+  /**
+   * Adds the node to the tree, we will try to balance it by doing a
    * shuffle on the input before adding
    */
   public void add(long lo, long hi, long bitrate) {
@@ -51,7 +63,8 @@ public class ITree  {
     }
   }
 
-  /** Returns the Nodes that intersect the range (lo, hi), not including
+  /**
+   * Returns the Nodes that intersect the range (lo, hi), not including
    * the lo and hi points meaning
    * the query (1,2) does not return the range 0,1.
    */

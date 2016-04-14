@@ -8,4 +8,12 @@ public class Query {
     this.startTime = startTime;
     this.endTime = endTime;
   }
+
+  public long getLo() {
+    return startTime;
+  }
+
+  public long getHi() {
+    return endTime;
+  }
 }

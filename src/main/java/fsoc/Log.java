@@ -10,4 +10,16 @@ public class Log {
     this.duration = duration;
     this.bitrate = bitrate;
   }
+
+  public long getHi() {
+    return endTime;
+  }
+
+  public long getLo() {
+    return endTime - duration;
+  }
+
+  public long getBitrate() {
+    return bitrate;
+  }
 }

@@ -18,6 +18,10 @@ public class Node  {
   private long bitrate;
 
 
+  /**
+   * Creates a new node for interval searching
+   * @param bitrate the bitrate in kbps
+   */
   public Node(long lo, long hi, long maxLo, long maxHi, long bitrate) {
     this.lo = lo;
     this.hi = hi;
@@ -64,6 +68,10 @@ public class Node  {
 
   public void setRight(Node node) {
     this.right = node;
+  }
+
+  public long getBitrate() {
+    return bitrate;
   }
 
   public String toString() {
