@@ -51,7 +51,8 @@ public class ITree  {
     }
   }
 
-  /** Returns the Nodes that intersect the range (lo, hi) meaning
+  /** Returns the Nodes that intersect the range (lo, hi), not including
+   * the lo and hi points meaning
    * the query (1,2) does not return the range 0,1.
    */
   public LinkedList<Node> getIntersections(int lo, int hi) {
