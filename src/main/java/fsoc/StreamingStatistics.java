@@ -17,6 +17,24 @@ public class StreamingStatistics  {
 
   public static String processStats(InputStream in) {
     Kattio io = new Kattio(in, System.out);
+
+    int n = io.getInt();
+    Log entries[] = new Log[n];
+
+    for (int i = 0; i < n; i++) {
+      entries[i] = new Log(io.getLong(),io.getLong(),io.getLong());
+
+    }
+
+    int q = io.getInt();
+    Query queries[] = new Query[q];
+
+    for (int i = 0; i < n; i++) {
+      queries[i] = new Query(io.getLong(),io.getLong());
+    }
+
     return "foo";
+
   }
 }
+
