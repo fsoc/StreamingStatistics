@@ -56,19 +56,22 @@ public class ITree  {
    */
   public LinkedList<Node> getIntersections(int lo, int hi) {
     LinkedList<Node> ans = new LinkedList<Node>();
-    Node current = root;
 
-    while (current != null) {
+    LinkedList<Node> queue = new LinkedList<Node>();
+    queue.add(root);
+
+    while (queue.size() > 0) {
+      Node current = queue.remove();
 
       if (intersects(lo, hi, current.getLo(), current.getHi())) {
         ans.add(current);
-        // Support one result for now.
-        return ans;
       }
+
       if (current.getLeft() != null && current.getLeft().getMaxHi() > lo) {
-        current = current.getLeft();
-      } else {
-        current = current.getRight();
+        queue.add(current.getLeft());
+      }
+      if (current.getRight() != null && current.getRight().getMaxLo() < hi) {
+        queue.add(current.getRight());
       }
     }
 
