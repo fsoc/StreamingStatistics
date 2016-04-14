@@ -4,6 +4,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 import java.util.LinkedList;
+import java.util.Iterator;
 
 public class ITreeTest {
 
@@ -44,9 +45,7 @@ public class ITreeTest {
     ITree tree = createTree();
     LinkedList<Node> intersections = tree.getIntersections(98, 100);
     assertEquals(1, intersections.size());
-    String strAns = "" + intersections.get(0);
-    String correctAns = "(29,99) 29;99 ";
-    assertEquals(correctAns, strAns);
+    assertEquals("(29,99) 29;99 ", getIntersections(intersections));
   }
 
   @Test
@@ -54,9 +53,25 @@ public class ITreeTest {
     ITree tree = createTree();
     LinkedList<Node> intersections = tree.getIntersections(0, 1);
     assertEquals(1, intersections.size());
-    String strAns = "" + intersections.get(0);
-    String correctAns = "(0,1) 0;1 ";
-    assertEquals(correctAns, strAns);
+    assertEquals("(0,1) 0;1 ", getIntersections(intersections));
+  }
+
+  @Test
+  public void test3Intersections() {
+    ITree tree = createTree();
+    LinkedList<Node> intersections = tree.getIntersections(0, 9);
+    assertEquals(3, intersections.size());
+    assertEquals("(7,8) 7;8 (0,1) 0;1 (3,41) 0;41 ", getIntersections(intersections));
+  }
+
+  private String getIntersections(LinkedList<Node> intersections) {
+    Iterator<Node> it = intersections.descendingIterator();
+    String ans ="";
+
+    while (it.hasNext()) {
+      ans += it.next();
+    }
+    return ans;
   }
 
 }
