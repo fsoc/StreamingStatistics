@@ -59,7 +59,9 @@ public class ITree  {
     LinkedList<Node> ans = new LinkedList<Node>();
 
     LinkedList<Node> queue = new LinkedList<Node>();
-    queue.add(root);
+    if (root != null) {
+      queue.add(root);
+    }
 
     while (queue.size() > 0) {
       Node current = queue.remove();
