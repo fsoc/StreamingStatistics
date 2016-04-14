@@ -9,16 +9,16 @@ public class Node  {
   private Node right;
 
   // The max of values lo and hi below and on this part of the tree
-  private int maxLo;
-  private int maxHi;
+  private long maxLo;
+  private long maxHi;
 
-  // This interval
-  private int lo;
-  private int hi;
-  private int bitrate;
+  // This longerval
+  private long lo;
+  private long hi;
+  private long bitrate;
 
 
-  public Node(int lo, int hi, int maxLo, int maxHi, int bitrate) {
+  public Node(long lo, long hi, long maxLo, long maxHi, long bitrate) {
     this.lo = lo;
     this.hi = hi;
     this.maxLo = maxLo;
@@ -26,27 +26,27 @@ public class Node  {
     this.bitrate = bitrate;
   }
 
-  public int getMaxLo() {
+  public long getMaxLo() {
     return maxLo;
   }
 
-  public void setMaxLo(int maxLo) {
+  public void setMaxLo(long maxLo) {
     this.maxLo = maxLo;
   }
 
-  public int getMaxHi() {
+  public long getMaxHi() {
     return maxHi;
   }
 
-  public void setMaxHi(int maxHi) {
+  public void setMaxHi(long maxHi) {
     this.maxHi = maxHi;
   }
 
-  public int getHi() {
+  public long getHi() {
     return hi;
   }
 
-  public int getLo() {
+  public long getLo() {
     return lo;
   }
 

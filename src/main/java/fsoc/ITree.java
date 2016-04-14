@@ -16,7 +16,7 @@ public class ITree  {
   /** Adds the node to the tree, we will try to balance it by doing a
    * shuffle on the input before adding
    */
-  public void add(int lo, int hi, int bitrate) {
+  public void add(long lo, long hi, long bitrate) {
 
     if (root == null) {
       root = new Node(lo, hi, lo, hi, bitrate);
@@ -55,7 +55,7 @@ public class ITree  {
    * the lo and hi points meaning
    * the query (1,2) does not return the range 0,1.
    */
-  public LinkedList<Node> getIntersections(int lo, int hi) {
+  public LinkedList<Node> getIntersections(long lo, long hi) {
     LinkedList<Node> ans = new LinkedList<Node>();
 
     LinkedList<Node> queue = new LinkedList<Node>();
@@ -82,7 +82,7 @@ public class ITree  {
   }
 
   // Returns true if (lo1, hi1) intersect with (lo2, hi2)
-  private boolean intersects(int lo1, int hi1, int lo2, int hi2) {
+  private boolean intersects(long lo1, long hi1, long lo2, long hi2) {
     return lo1 < hi2 && hi1 > lo2;
   }
 
