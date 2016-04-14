@@ -73,6 +73,13 @@ public class ITreeTest {
     assertEquals("(7,8) 7;8 (7,8) 7;8 (0,1) 0;1 (3,41) 0;41 ", getIntersections(intersections));
   }
 
+  @Test
+  public void testEmpty() {
+    ITree tree = new ITree();
+    assertEquals(0, tree.getIntersections(0,99).size());
+  }
+
+
   private String getIntersections(LinkedList<Node> intersections) {
     Iterator<Node> it = intersections.descendingIterator();
     String ans ="";
