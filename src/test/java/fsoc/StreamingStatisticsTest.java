@@ -36,9 +36,9 @@ public class StreamingStatisticsTest {
 
   @Test
   public void testBpsTransform() {
-    Query q = new Query(1325967078930L, 1325967078931L);
+    Query q = new Query(4, 5);
 
-    Node node = new Node(0, 9325967078931L, 0, 0, 96);
+    Node node = new Node(0, 10, 0, 0, 96);
     assertEquals(96, StreamingStatistics.getBandwidth(node, q));
 
   }

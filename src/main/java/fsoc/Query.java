@@ -1,19 +1,19 @@
 package fsoc;
 
 public class Query {
-  long startTime;
-  long endTime;
+  int startTime;
+  int endTime;
 
-  public Query(long startTime, long endTime) {
+  public Query(int startTime, int endTime) {
     this.startTime = startTime;
     this.endTime = endTime;
   }
 
-  public long getLo() {
+  public int getLo() {
     return startTime;
   }
 
-  public long getHi() {
+  public int getHi() {
     return endTime;
   }
 }
