@@ -3,7 +3,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Generator  {
   public static void main(String[] args) {
-    print3();
+    print1();
   }
 
   private static void print3() {
@@ -50,7 +50,7 @@ public class Generator  {
   }
 
   private static void print1() {
-    int num = 100000;
+    int num = 10000;
     long min = 1325000000000L;
     long max = 1326000000000L;
     long maxd = 30000000L;
