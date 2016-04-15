@@ -55,8 +55,13 @@ public class StreamingStatistics  {
       if (answer.length() > 0) {
         answer += "\n";
       }
-      String sum = "" + sumBandwidth(tree.getIntersections(q.getLo(), q.getHi()), q);
-      answer += sum.substring(0, sum.length() -3) + "." + sum.substring(sum.length() - 3);
+      long bandwidth = sumBandwidth(tree.getIntersections(q.getLo(), q.getHi()), q);
+      if (bandwidth > 0) {
+        String sum = "" + bandwidth;
+        answer += sum.substring(0, sum.length() -3) + "." + sum.substring(sum.length() - 3);
+      } else {
+        answer +="0.000";
+      }
     }
 
     return answer;
