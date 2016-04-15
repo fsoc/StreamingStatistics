@@ -15,94 +15,37 @@ import java.lang.Math;
 
 public class StreamingStatistics  {
   public static void main(String[] args) {
-    Kattio io = new Kattio(System.in, System.out);
-    io.println(processStats(System.in));
-    io.flush();
-    io.close();
+    processStats(System.in, System.out);
   }
 
-  public static String processStats(InputStream in) {
+  public static void processStats(InputStream in, OutputStream out) {
     long offset = 1325000000000L;
-    Kattio io = new Kattio(in, System.out);
+    int max = 1000000000; // the maximum song range possible
+    Kattio io = new Kattio(in, out);
 
     int n = io.getInt();
-    ArrayList<Log> entries = new ArrayList<Log>(n);
+
+    DSTree tree = new DSTree(max + 1);
 
     for (int i = 0; i < n; i++) {
-      long entry = io.getLong();
-      entries.add(new Log((int) (entry-offset),io.getInt(),io.getInt()));
+      int hi = (int)(io.getLong() - offset);
+      int lo = hi - io.getInt();
+      int bitrate = io.getInt();
+      tree.add(lo, hi, bitrate, null);
     }
-
-    // Shuffle the input in order to balance the binary tree
-    Collections.shuffle(entries);
 
     // Get the queries
     int q = io.getInt();
-    Query queries[] = new Query[q];
 
-    for (int i = 0; i < n; i++) {
-      long entry = io.getLong();
-      int q1 = (int)(entry-offset);
-      entry = io.getLong();
-      queries[i] = new Query(q1, (int)(entry-offset));
+    for (int i = 0; i < q; i++) {
+      int lo = (int)(io.getLong()-offset);
+      int hi = (int)(io.getLong()-offset);
+      double bandwidth = (double)tree.query(lo, hi, null) / 1000.0;
+
+      io.println(String.format("%.3f", bandwidth));
     }
 
-    return calculateStats(entries, queries);
-
+    io.flush();
+    io.close();
   }
-
-  private static String calculateStats(ArrayList<Log> entries, Query[] queries) {
-
-    ITree tree = new ITree(entries);
-    String answer = "";
-
-    for (Query q : queries) {
-      if (answer.length() > 0) {
-        answer += "\n";
-      }
-      long bandwidth = sumBandwidth(tree.getIntersections(q.getLo(), q.getHi()), q);
-      if (bandwidth > 0) {
-        String sum = "" + bandwidth;
-        answer += sum.substring(0, sum.length() -3) + "." + sum.substring(sum.length() - 3);
-      } else {
-        answer +="0.000";
-      }
-    }
-
-    return answer;
-  }
-
-  private static long sumBandwidth(LinkedList<Node> intersections, Query q) {
-    Iterator<Node> it = intersections.listIterator();
-
-    long sum = 0;
-    while (it.hasNext()) {
-      Node current = it.next();
-      sum += (long)getBandwidth(current, q);
-    }
-    return sum;
-  }
-
-  /**
-   * Gets how much bandwidth the song given its kbps has taken for
-  * the interval of this query.
-  * @return the amount of bits played
-  */
-  public static int getBandwidth(Node current, Query q) {
-    int sharedLo = Math.max(current.getLo(), q.getLo());
-    int sharedHi = Math.min(current.getHi(), q.getHi());
-
-    // The amount of intersection in ms of the song and query
-    int matchedMillis = sharedHi - sharedLo;
-    if (matchedMillis < 1) {
-      throw new NumberFormatException("matchedMillis is <1");
-    }
-
-    // The amount of bits per ms equals kbits per s
-    int bpms = current.getBitrate();
-
-    return matchedMillis * bpms;
-  }
-
 }
-
