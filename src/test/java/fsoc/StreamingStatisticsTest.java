@@ -3,12 +3,14 @@ package fsoc;
 import org.junit.*;
 import static org.junit.Assert.*;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.FileInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.lang.StringBuilder;
 import java.util.Collection;
 import java.util.ArrayList;
+import java.io.ByteArrayOutputStream;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -35,15 +37,6 @@ public class StreamingStatisticsTest {
   }
 
   @Test
-  public void testBpsTransform() {
-    Query q = new Query(4, 5);
-
-    Node node = new Node(0, 10, 0, 0, 96);
-    assertEquals(96, StreamingStatistics.getBandwidth(node, q));
-
-  }
-
-  @Test
   public void testY() throws IOException {
     try  {
       executeTextFiles(file.toString(), file.toString().replace("in","ans"));
@@ -58,7 +51,11 @@ public class StreamingStatisticsTest {
     InputStream answerStream = new FileInputStream(answer);
     String answerString = streamToString(answerStream);
 
-    assertEquals(answerString.replace("\n",""), StreamingStatistics.processStats(input).replace("\n",""));
+    OutputStream output = new ByteArrayOutputStream();
+    StreamingStatistics.processStats(input, output);
+    String programAnswer = output.toString();
+
+    assertEquals(answerString.replace("\n",""), programAnswer.replace("\n",""));
 
     input.close();
     answerStream.close();
