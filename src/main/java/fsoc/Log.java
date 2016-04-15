@@ -1,25 +1,25 @@
 package fsoc;
 
 public class Log {
-  long endTime;
-  long duration;
-  long bitrate;
+  int endTime;
+  int duration;
+  int bitrate;
 
-  public Log(long endTime, long duration, long bitrate) {
+  public Log(int endTime, int duration, int bitrate) {
     this.endTime = endTime;
     this.duration = duration;
     this.bitrate = bitrate;
   }
 
-  public long getHi() {
+  public int getHi() {
     return endTime;
   }
 
-  public long getLo() {
+  public int getLo() {
     return endTime - duration;
   }
 
-  public long getBitrate() {
+  public int getBitrate() {
     return bitrate;
   }
 }

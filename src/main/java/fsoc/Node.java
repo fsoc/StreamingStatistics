@@ -9,20 +9,20 @@ public class Node  {
   private Node right;
 
   // The max of values lo and hi below and on this part of the tree
-  private long maxLo;
-  private long maxHi;
+  private int maxLo;
+  private int maxHi;
 
-  // This longerval
-  private long lo;
-  private long hi;
-  private long bitrate;
+  // This interval
+  private int lo;
+  private int hi;
+  private int bitrate;
 
 
   /**
    * Creates a new node for interval searching
    * @param bitrate the bitrate in kbps
    */
-  public Node(long lo, long hi, long maxLo, long maxHi, long bitrate) {
+  public Node(int lo, int hi, int maxLo, int maxHi, int bitrate) {
     this.lo = lo;
     this.hi = hi;
     this.maxLo = maxLo;
@@ -30,27 +30,27 @@ public class Node  {
     this.bitrate = bitrate;
   }
 
-  public long getMaxLo() {
+  public int getMaxLo() {
     return maxLo;
   }
 
-  public void setMaxLo(long maxLo) {
+  public void setMaxLo(int maxLo) {
     this.maxLo = maxLo;
   }
 
-  public long getMaxHi() {
+  public int getMaxHi() {
     return maxHi;
   }
 
-  public void setMaxHi(long maxHi) {
+  public void setMaxHi(int maxHi) {
     this.maxHi = maxHi;
   }
 
-  public long getHi() {
+  public int getHi() {
     return hi;
   }
 
-  public long getLo() {
+  public int getLo() {
     return lo;
   }
 
@@ -70,7 +70,7 @@ public class Node  {
     this.right = node;
   }
 
-  public long getBitrate() {
+  public int getBitrate() {
     return bitrate;
   }
 

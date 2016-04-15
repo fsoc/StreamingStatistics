@@ -22,13 +22,15 @@ public class StreamingStatistics  {
   }
 
   public static String processStats(InputStream in) {
+    long offset = 1325000000000L;
     Kattio io = new Kattio(in, System.out);
 
     int n = io.getInt();
     ArrayList<Log> entries = new ArrayList<Log>(n);
 
     for (int i = 0; i < n; i++) {
-      entries.add(new Log(io.getLong(),io.getLong(),io.getLong()));
+      long entry = io.getLong();
+      entries.add(new Log((int) (entry-offset),io.getInt(),io.getInt()));
     }
 
     // Shuffle the input in order to balance the binary tree
@@ -39,7 +41,10 @@ public class StreamingStatistics  {
     Query queries[] = new Query[q];
 
     for (int i = 0; i < n; i++) {
-      queries[i] = new Query(io.getLong(),io.getLong());
+      long entry = io.getLong();
+      int q1 = (int)(entry-offset);
+      entry = io.getLong();
+      queries[i] = new Query(q1, (int)(entry-offset));
     }
 
     return calculateStats(entries, queries);
@@ -73,7 +78,7 @@ public class StreamingStatistics  {
     long sum = 0;
     while (it.hasNext()) {
       Node current = it.next();
-      sum += getBandwidth(current, q);
+      sum += (long)getBandwidth(current, q);
     }
     return sum;
   }
@@ -83,18 +88,18 @@ public class StreamingStatistics  {
   * the interval of this query.
   * @return the amount of bits played
   */
-  public static long getBandwidth(Node current, Query q) {
-    long sharedLo = Math.max(current.getLo(), q.getLo());
-    long sharedHi = Math.min(current.getHi(), q.getHi());
+  public static int getBandwidth(Node current, Query q) {
+    int sharedLo = Math.max(current.getLo(), q.getLo());
+    int sharedHi = Math.min(current.getHi(), q.getHi());
 
     // The amount of intersection in ms of the song and query
-    long matchedMillis = sharedHi - sharedLo;
+    int matchedMillis = sharedHi - sharedLo;
     if (matchedMillis < 1) {
       throw new NumberFormatException("matchedMillis is <1");
     }
 
     // The amount of bits per ms equals kbits per s
-    long bpms = current.getBitrate();
+    int bpms = current.getBitrate();
 
     return matchedMillis * bpms;
   }

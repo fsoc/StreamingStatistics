@@ -50,7 +50,7 @@ public class Generator  {
   }
 
   private static void print1() {
-    int num = 10000;
+    int num = 100000;
     long min = 1325000000000L;
     long max = 1326000000000L;
     long maxd = 30000000L;
@@ -62,7 +62,7 @@ public class Generator  {
     for ( int i = 0; i< num; i++) {
       long rand = ThreadLocalRandom.current().nextLong(min, max);
 
-      long rand2 = rand + ThreadLocalRandom.current().nextLong(0, Math.min(max-rand, maxd));
+      long rand2 = ThreadLocalRandom.current().nextLong(0, maxd);
       long rand3 = ThreadLocalRandom.current().nextLong(64, 320);
       System.out.println(rand+" "+rand2+" "+rand3);
     }
